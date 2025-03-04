@@ -1,0 +1,10 @@
+
+services:
+  build:
+    image: caracolazul/golang:${GO_VERSION}
+    build:
+      context: .
+      dockerfile: Containerfile
+      args:
+        - BASE_IMAGE=golang:${GO_VERSION}
+
