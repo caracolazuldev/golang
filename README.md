@@ -14,14 +14,16 @@ go:
     user: go
     volumes:
       - go-modules:/go/pkg
+      - go-cache:/home/go/.cache
       - .:/go/src/${APP_NAME:-my-app}
     working_dir: /go/src/${APP_NAME:-my-app}
 
 volumes:
   go-modules:
+  go-cache:
 ```
 
-Note the persistent volume to hold fetched packages.
+Note the persistent volumes to hold fetched packages and caches. Build time will be significantly higher without a persistent cache: do not overlook!
 
 Note the `APP_NAME` environment variable. This will also be the name of the output library or executable.
 

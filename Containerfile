@@ -12,6 +12,7 @@ RUN addgroup --gid ${GROUP_ID} go \
 	&& adduser --disabled-password --gecos '' --uid ${USER_ID} --gid ${GROUP_ID} go
 
 RUN mkdir -p /go/pkg && chown -R ${USER_ID}:${GROUP_ID} /go/pkg
+RUN mkdir -p /home/go/.cache && chown -R ${USER_ID}:${GROUP_ID} /home/go/.cache
 
 #
 # Entrypoint
@@ -27,8 +28,10 @@ ENTRYPOINT [ "go" ]
 #     user: go
 #     volumes:
 #       - go-modules:/go/pkg
+#		- go-cache:/home/go/.cache
 #       - .:/go/src/${APP_NAME:-my-app}
 #     working_dir: /go/src/${APP_NAME:-my-app}
 
 # volumes:
 # 	go-modules:
+#	go-cache:
