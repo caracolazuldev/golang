@@ -1,4 +1,5 @@
-ARG BASE_IMAGE=golang:latest
+ARG GO_VERSION=latest
+ARG BASE_IMAGE=golang:${GO_VERSION}
 
 FROM ${BASE_IMAGE}
 
