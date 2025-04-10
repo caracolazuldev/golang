@@ -15,6 +15,15 @@ RUN mkdir -p /go/pkg && chown -R ${USER_ID}:${GROUP_ID} /go/pkg
 RUN mkdir -p /home/go/.cache && chown -R ${USER_ID}:${GROUP_ID} /home/go/.cache
 
 #
+# Dev utils
+
+RUN go install github.com/766b/go-outliner@latest
+
+RUN go install github.com/go-delve/delve/cmd/dlv@latest
+
+RUN go install golang.org/x/tools/cmd/godoc@latest
+
+#
 # Entrypoint
 
 USER go
