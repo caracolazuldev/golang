@@ -1,0 +1,26 @@
+ARG GO_VERSION=latest
+ARG BASE_IMAGE=caracolazul/golang:${GO_VERSION}
+
+FROM ${BASE_IMAGE}
+
+WORKDIR /home/go
+
+# Pre-install VS Code server
+RUN mkdir -p .vscode-server/bin && \
+	curl -fsSL https://update.code.visualstudio.com/latest/server-linux-x64/stable \
+	-o latest.tar.gz
+RUN tar -xzf latest.tar.gz -C .vscode-server --strip-components 1 && \
+	rm latest.tar.gz
+
+# Pre-install extensions
+RUN mkdir -p .vscode-server/extensions
+
+RUN	.vscode-server/bin/code-server --install-extension golang.go 
+
+RUN .vscode-server/bin/code-server --install-extension github.copilot && \
+	.vscode-server/bin/code-server --install-extension github.copilot-chat 
+
+RUN	.vscode-server/bin/code-server --install-extension ms-vscode-remote.remote-containers
+
+ENTRYPOINT ["/bin/bash", "-c"]
+CMD [ "while true; do sleep 1000; done" ]

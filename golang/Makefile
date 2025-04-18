@@ -1,7 +1,7 @@
-IMAGE_NAME=caracolazul/golang
+IMAGE_NAME ?= caracolazul/golang
 
 # last will be used for :latest
-TAGS := \
+TAGS ?= \
 	1.23 \
 	1.24
 
