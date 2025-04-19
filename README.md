@@ -48,6 +48,14 @@ Specifying the `user: go` is not necessary.
 
 ## Tips for using VS Code Dev Containers
 
+**NB: This doesn't work**
+
+> Possible solution:
+> The docs for Dev Containers states that the server and client must match version exactly. 
+> Apparently, to enforce this, it installs itself inside the container to a path that contains the commit-ID (hash).
+> So, either, we can create an image from the container post-install, or we can look-up the commit id in an initialized container, and update the Containerfile to install the server (and extensions) in the correct directory. 
+> Hmmm... what if we just create a managed volume...
+
 I was dense and didn't realize that vscode is not smart enough to start the dev-container on it's own. Be sure your container is started.
 
 As of this writing, when VS Code generates the dev container configs, you need to mamually complete the configuration, or you will get an error the next time you try to connect to the dev container.
