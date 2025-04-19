@@ -1,9 +1,9 @@
 IMAGE_NAME ?= caracolazul/golang
 
-# last will be used for :latest
+# first will be used for :latest
 TAGS ?= \
-	1.23 \
-	1.24
+	1.24 \
+	1.23
 
 ifdef NO_CACHE
 NO_CACHE=--no-cache
@@ -15,7 +15,7 @@ build:
 			--build-arg GO_VERSION=$$version -t ${IMAGE_NAME}:$$version \
 			-f Containerfile . ; \
 	done
-	docker tag ${IMAGE_NAME}:$(lastword ${TAGS}) ${IMAGE_NAME}:latest
+	docker tag ${IMAGE_NAME}:$(firstword ${TAGS}) ${IMAGE_NAME}:latest
 
 push:
 	@for version in ${TAGS} latest; do \

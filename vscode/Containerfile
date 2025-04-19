@@ -5,22 +5,15 @@ FROM ${BASE_IMAGE}
 
 WORKDIR /home/go
 
-# Pre-install VS Code server
-RUN mkdir -p .vscode-server/bin && \
-	curl -fsSL https://update.code.visualstudio.com/latest/server-linux-x64/stable \
-	-o latest.tar.gz
-RUN tar -xzf latest.tar.gz -C .vscode-server --strip-components 1 && \
-	rm latest.tar.gz
+#
+#  Dev (IDE) tools
 
-# Pre-install extensions
-RUN mkdir -p .vscode-server/extensions
+RUN go install github.com/766b/go-outliner@latest
+RUN go install golang.org/x/tools/gopls@latest
+RUN go install honnef.co/go/tools/cmd/staticcheck@latest
 
-RUN	.vscode-server/bin/code-server --install-extension golang.go 
-
-RUN .vscode-server/bin/code-server --install-extension github.copilot && \
-	.vscode-server/bin/code-server --install-extension github.copilot-chat 
-
-RUN	.vscode-server/bin/code-server --install-extension ms-vscode-remote.remote-containers
+# Prepare VS Code Server mount Point
+RUN mkdir -p .vscode-server
 
 ENTRYPOINT ["/bin/bash", "-c"]
 CMD [ "while true; do sleep 1000; done" ]
